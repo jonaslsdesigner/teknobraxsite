@@ -1,7 +1,7 @@
 import { ArrowRight, Play, CheckCircle2, BellRing } from 'lucide-react'
 import { Callout, Eyebrow, ImageSlot, Rings } from './ui'
 
-/** Moldura de celular — recebe o print real da tela do app (images/app-*.png) */
+/** Moldura de celular — recebe o print real da tela do app (images/app-*.webp) */
 export function Phone({ src, label, className = '' }) {
   return (
     <div className={`relative rounded-[44px] bg-ink-900 p-[10px] shadow-[0_40px_80px_-30px_rgba(91,39,20,0.55)] ${className}`}>
@@ -21,7 +21,7 @@ export default function AppDestaque() {
           <Rings data-parallax="0.1" className="absolute top-1/2 left-1/2 size-[560px] -translate-x-1/2 -translate-y-1/2 text-brand-500" />
           <div data-reveal="up" data-mouse="10" style={{ '--d': '300ms', '--dur': '1400ms' }} className="relative translate-y-10">
             <Phone
-              src="app-destaque.png"
+              src="app-destaque.webp"
               label="Print da tela inicial do app"
               className="w-[250px] sm:w-[270px]"
             />

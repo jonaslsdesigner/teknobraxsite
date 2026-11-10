@@ -136,8 +136,8 @@ export function XSlash({ className = '', color = 'currentColor', ...rest }) {
  * Ordem de tentativa: arquivo oficial → versão temporária tirada do vídeo → texto.
  */
 const LOGOS = {
-  completo: ['logo-teknobrax.png', 'logo-teknobrax-TEMP.png'],
-  horizontal: ['logo-teknobrax-horizontal.png', 'logo-teknobrax.png', 'logo-teknobrax-TEMP.png'],
+  completo: ['logo-teknobrax-TEMP.webp'],
+  horizontal: ['logo-teknobrax-TEMP.webp'],
 }
 export function Logo({ className = '', variant = 'completo' }) {
   const lista = LOGOS[variant]

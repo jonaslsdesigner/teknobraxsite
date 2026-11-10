@@ -82,37 +82,37 @@ export const PASSOS_APP = [
     n: '01', tag: 'Acesso', icon: LogIn,
     titulo: 'Entre na sua conta.',
     texto: 'Login com e-mail, telefone ou CPF. Em segundos você está na tela inicial do condomínio.',
-    img: 'app-01-acesso.png',
+    img: 'app-01-acesso.webp',
   },
   {
     n: '02', tag: 'Unidade', icon: UserPlus,
     titulo: 'Cadastre os moradores.',
     texto: 'Moradores, veículos e foto de perfil — a foto já fica vinculada aos leitores faciais dos portões e da guarita.',
-    img: 'app-02-moradores.png',
+    img: 'app-02-moradores.webp',
   },
   {
     n: '03', tag: 'Autorizações', icon: KeyRound,
     titulo: 'Libere a entrada.',
     texto: 'Autorize visitantes e prestadores de serviço com data e horário, e receba aviso quando chegarem.',
-    img: 'app-03-autorizacoes.png',
+    img: 'app-03-autorizacoes.webp',
   },
   {
     n: '04', tag: 'Câmeras', icon: Video,
     titulo: 'Veja tudo ao vivo.',
     texto: 'Escolha a câmera, alterne entre elas e monitore de onde estiver.',
-    img: 'app-04-cameras.png',
+    img: 'app-04-cameras.webp',
   },
   {
     n: '05', tag: 'Portões', icon: Smartphone,
     titulo: 'Abra pelo celular.',
     texto: 'Deslize para abrir, confira a câmera na hora e conte com sensor de presença e fechamento automático.',
-    img: 'app-05-portoes.png',
+    img: 'app-05-portoes.webp',
   },
   {
     n: '06', tag: 'E tem mais', icon: LayoutGrid,
     titulo: 'Explore o aplicativo.',
     texto: 'Reservas de espaços, documentos, mensagens, ocorrências e muito mais na palma da mão.',
-    img: 'app-06-explore.png',
+    img: 'app-06-explore.webp',
   },
 ]
 

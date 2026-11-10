@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+/* ============================================================
+   IDENTIDADE TEKNOBRAX — tirada do vídeo tutorial oficial
+   ============================================================ */
+@theme {
+  /* Laranja da marca — #FF5903 (logo e posts do Instagram) */
+  --color-brand-50: #fff8f3;
+  --color-brand-100: #fff0e6;
+  --color-brand-200: #ffdcc6;
+  --color-brand-300: #ffbb94;
+  --color-brand-400: #ff8a4c;
+  --color-brand-500: #ff5903;
+  --color-brand-600: #e44f19; /* laranja do app — hover/estados */
+  --color-brand-700: #b83d0e;
+
+  /* Marrom do cabeçalho do app */
+  --color-cocoa-500: #7a3a1f;
+  --color-cocoa-700: #5b2714;
+  --color-cocoa-900: #3a180c;
+
+  /* Dourado das asas do logotipo */
+  --color-gold-400: #d4a24c;
+  --color-gold-500: #b8862b;
+
+  /* Texto (preto quente) */
+  --color-ink-900: #1c1310;
+  --color-ink-700: #3d302b;
+  --color-ink-500: #6f625c;
+  --color-ink-300: #b9aea8;
+
+  /* Fontes hospedadas no próprio site (@fontsource) — sem depender do Google */
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter Tight Variable", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-ping-slow: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes ping-slow {
+    0% { transform: scale(1); opacity: 0.55; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  body {
+    @apply bg-white font-sans text-ink-700 antialiased;
+  }
+  /* Nada pode alargar a página (animações que entram pelos lados, grafismos) */
+  html, body { overflow-x: clip; }
+  h1, h2, h3, h4 {
+    @apply font-display text-ink-900;
+    letter-spacing: -0.025em;
+  }
+  ::selection { @apply bg-brand-500 text-white; }
+}
+
+@utility container-site {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500;
+}
+@utility btn-primary {
+  @apply btn bg-brand-500 text-white shadow-[0_10px_30px_-10px_rgba(255,89,3,0.7)] hover:-translate-y-0.5 hover:bg-brand-600;
+}
+@utility btn-ghost {
+  @apply btn border border-ink-900/10 bg-white text-ink-900 hover:border-brand-500/40 hover:text-brand-600;
+}
+/* Pílula flutuante: ícone laranja + título + subtítulo (igual aos callouts do vídeo) */
+@utility callout {
+  @apply flex items-center gap-3 rounded-full bg-white py-2 pr-5 pl-2 shadow-[0_18px_40px_-14px_rgba(91,39,20,0.35)] ring-1 ring-ink-900/5;
+}
+
+/* Fundo suave pêssego, como no vídeo */
+.bg-peach-glow {
+  background:
+    radial-gradient(120% 80% at 85% 0%, #fee0cc 0%, transparent 55%),
+    radial-gradient(90% 70% at 0% 100%, #fff0e6 0%, transparent 60%),
+    #fffaf6;
+}
+
+/* ============================================================
+   ANIMAÇÕES DE ENTRADA (load + scroll) — controladas por src/reveal.js
+   data-reveal="up | down | left | right | zoom | pop | fade | mask | soft"
+   style="--d: 300ms" → atraso (reveal.js aplica o fator de velocidade).
+   data-stagger no pai → filhos em sequência.
+   Só fade + movimento — sem desfoque.
+   ============================================================ */
+[data-reveal] {
+  --d: 0ms;
+  --dur: 990ms;
+  opacity: 0;
+  transform: translate3d(0, 48px, 0);
+  transition:
+    opacity var(--dur) cubic-bezier(0.22, 1, 0.36, 1) var(--d),
+    transform var(--dur) cubic-bezier(0.22, 1, 0.36, 1) var(--d);
+  will-change: opacity, transform;
+}
+[data-reveal="down"] { transform: translate3d(0, -40px, 0); }
+[data-reveal="left"] { transform: translate3d(-64px, 0, 0); }
+[data-reveal="right"] { transform: translate3d(64px, 0, 0); }
+[data-reveal="zoom"] { transform: scale(0.92); }
+[data-reveal="pop"] { transform: scale(0.6) translate3d(0, 20px, 0); --dur: 810ms; }
+[data-reveal="fade"] { transform: none; }
+/* Texto saindo de trás de uma máscara (o pai precisa de overflow-hidden) */
+[data-reveal="mask"] { transform: translate3d(0, 105%, 0); opacity: 1; --dur: 1080ms; }
+/* Fade lento com leve aproximação — imagem principal */
+[data-reveal="soft"] { transform: scale(1.08); --dur: 1620ms; }
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+   MOTION INTERATIVO — controlado por src/motion.js
+   ============================================================ */
+/* Depois da entrada, o transform é do JS (lerp) → sem transition nele pra não "arrastar" */
+.btn:not([data-reveal]),
+.btn-primary:not([data-reveal]),
+.btn-ghost:not([data-reveal]),
+[data-magnetic]:not([data-reveal]) {
+  transition-property: color, background-color, border-color, box-shadow, translate, scale, opacity;
+  transition-duration: 250ms;
+}
+[data-tilt]:not([data-reveal]) {
+  transition-property: box-shadow, translate, background-color;
+  transition-duration: 400ms;
+}
+[data-tilt] { position: relative; transform-style: preserve-3d; }
+/* Brilho que segue o cursor no card */
+[data-tilt]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.35), transparent 45%);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+[data-tilt].tilt-on::after { opacity: 1; }
+
+/* Reflexo que atravessa o botão laranja no hover */
+.btn-primary { position: relative; overflow: hidden; isolation: isolate; }
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+  translate: -120% 0;
+  transition: translate 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-primary:hover::after { translate: 120% 0; }
+
+/* Setas andam um pouquinho no hover de qualquer link/botão */
+a .lucide-arrow-right, a .lucide-arrow-up-right, button .lucide-arrow-right {
+  transition: translate 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+a:hover .lucide-arrow-right, button:hover .lucide-arrow-right { translate: 4px 0; }
+a:hover .lucide-arrow-up-right { translate: 3px -3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
